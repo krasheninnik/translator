@@ -8,6 +8,7 @@ enum STATE {
 	INT,				// 
 	OPEN_QUOTE,			// 
 	CHAR,				//
+	CLOSE_QUOTE,		
 	BACKSLACH_SPEC_SYMBOL,		//
 	SPEC_SYMBOL,		// 
 /////////////////////////////	
@@ -15,6 +16,7 @@ enum STATE {
 	ONESTRING_COMMENT,  // 
 	COMMENT,			// 
 	CLOSED_ASTERISK,	// 
+	CLOSED_COMMENT,		//
 //////////////////////////////	
 	OPERTAION,
 	OPERATION2LEFT,		// 

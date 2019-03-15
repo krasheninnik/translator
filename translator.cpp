@@ -98,6 +98,10 @@ void Translator::translateToTokens() {
 			event = lexAnaliz.recognizeEvent(line[i]);
 			nextState = lexAnaliz.transition(curState, event);
 
+
+			/// add char to const!
+
+
 			// processing state:
 			if (nextState == STATE::OUT) {
 				if (curState == STATE::ERROR) {

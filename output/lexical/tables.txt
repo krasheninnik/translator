@@ -1,9 +1,3 @@
 Table of Identificators
-b
-a
-c
 
 Table of Const
-123
-0
-22

@@ -73,7 +73,7 @@ LexicalAnaliz::LexicalAnaliz() {
 	transitionMatrix[CHAR][DECIMAL] = ERROR;
 	transitionMatrix[CHAR][SLASH] = ERROR;
 	transitionMatrix[CHAR][ASTERISK] = ERROR;
-	transitionMatrix[CHAR][QUOTE] = OUT;
+	transitionMatrix[CHAR][QUOTE] = CLOSE_QUOTE;
 	transitionMatrix[CHAR][BACKSLASH] = ERROR;
 	transitionMatrix[CHAR][DELIMETER_SKIP_EV] = ERROR;
 	transitionMatrix[CHAR][DELIMETER_EV] = ERROR;
@@ -82,6 +82,20 @@ LexicalAnaliz::LexicalAnaliz() {
 	transitionMatrix[CHAR][OPERATION_LEFT] = ERROR;
 	transitionMatrix[CHAR][OPERATION_RIGHT] = ERROR;
 	transitionMatrix[CHAR][OPERTAION_EV] = ERROR;
+
+	transitionMatrix[CLOSE_QUOTE][LETTER] = ERROR;
+	transitionMatrix[CLOSE_QUOTE][DECIMAL] = ERROR;
+	transitionMatrix[CLOSE_QUOTE][SLASH] = OUT;
+	transitionMatrix[CLOSE_QUOTE][ASTERISK] = ERROR;
+	transitionMatrix[CLOSE_QUOTE][QUOTE] = ERROR;
+	transitionMatrix[CLOSE_QUOTE][BACKSLASH] = ERROR;
+	transitionMatrix[CLOSE_QUOTE][DELIMETER_SKIP_EV] = OUT;
+	transitionMatrix[CLOSE_QUOTE][DELIMETER_EV] = OUT;
+	transitionMatrix[CLOSE_QUOTE][NEW_LINE] = OUT;
+	transitionMatrix[CLOSE_QUOTE][INVALID_CHARACTER] = ERROR;
+	transitionMatrix[CLOSE_QUOTE][OPERATION_LEFT] = OUT;
+	transitionMatrix[CLOSE_QUOTE][OPERATION_RIGHT] = OUT;
+	transitionMatrix[CLOSE_QUOTE][OPERTAION_EV] = OUT;
 
 
 	transitionMatrix[BACKSLACH_SPEC_SYMBOL][LETTER] = SPEC_SYMBOL;
@@ -156,7 +170,7 @@ LexicalAnaliz::LexicalAnaliz() {
 
 	transitionMatrix[CLOSED_ASTERISK][LETTER] = COMMENT;
 	transitionMatrix[CLOSED_ASTERISK][DECIMAL] = COMMENT;
-	transitionMatrix[CLOSED_ASTERISK][SLASH] = OUT;
+	transitionMatrix[CLOSED_ASTERISK][SLASH] = CLOSED_COMMENT;
 	transitionMatrix[CLOSED_ASTERISK][ASTERISK] = CLOSED_ASTERISK;
 	transitionMatrix[CLOSED_ASTERISK][QUOTE] = COMMENT;
 	transitionMatrix[CLOSED_ASTERISK][BACKSLASH] = COMMENT;
@@ -167,6 +181,20 @@ LexicalAnaliz::LexicalAnaliz() {
 	transitionMatrix[CLOSED_ASTERISK][OPERATION_LEFT] = COMMENT;
 	transitionMatrix[CLOSED_ASTERISK][OPERATION_RIGHT] = COMMENT;
 	transitionMatrix[CLOSED_ASTERISK][OPERTAION_EV] = COMMENT;
+
+	transitionMatrix[CLOSED_COMMENT][LETTER] = OUT;
+	transitionMatrix[CLOSED_COMMENT][DECIMAL] = OUT;
+	transitionMatrix[CLOSED_COMMENT][SLASH] = OUT;
+	transitionMatrix[CLOSED_COMMENT][ASTERISK] = OUT;
+	transitionMatrix[CLOSED_COMMENT][QUOTE] = OUT;
+	transitionMatrix[CLOSED_COMMENT][BACKSLASH] = OUT;
+	transitionMatrix[CLOSED_COMMENT][DELIMETER_SKIP_EV] = OUT;
+	transitionMatrix[CLOSED_COMMENT][DELIMETER_EV] = OUT;
+	transitionMatrix[CLOSED_COMMENT][NEW_LINE] = OUT;
+	transitionMatrix[CLOSED_COMMENT][INVALID_CHARACTER] = OUT;
+	transitionMatrix[CLOSED_COMMENT][OPERATION_LEFT] = OUT;
+	transitionMatrix[CLOSED_COMMENT][OPERATION_RIGHT] = OUT;
+	transitionMatrix[CLOSED_COMMENT][OPERTAION_EV] = OUT;
 
 	transitionMatrix[OPERTAION][LETTER] = OUT;
 	transitionMatrix[OPERTAION][DECIMAL] = OUT;
@@ -238,20 +266,19 @@ LexicalAnaliz::LexicalAnaliz() {
 	transitionMatrix[OPERATION2RIGHT2][OPERATION_RIGHT] = OUT;
 	transitionMatrix[OPERATION2RIGHT2][OPERTAION_EV] = OUT;
 
-	// there is no situations where "DELIMETER_SKIP" -> "SOME STATE" transitions
-	transitionMatrix[DELIMETER_SKIP][LETTER] = START;
-	transitionMatrix[DELIMETER_SKIP][DECIMAL] = START;
-	transitionMatrix[DELIMETER_SKIP][SLASH] = START;
-	transitionMatrix[DELIMETER_SKIP][ASTERISK] = START;
-	transitionMatrix[DELIMETER_SKIP][QUOTE] = START;
-	transitionMatrix[DELIMETER_SKIP][BACKSLASH] = START;
-	transitionMatrix[DELIMETER_SKIP][DELIMETER_SKIP_EV] = START;
-	transitionMatrix[DELIMETER_SKIP][DELIMETER_EV] = START;
-	transitionMatrix[DELIMETER_SKIP][NEW_LINE] = START;
-	transitionMatrix[DELIMETER_SKIP][INVALID_CHARACTER] = START;
-	transitionMatrix[DELIMETER_SKIP][OPERATION_LEFT] = START;
-	transitionMatrix[DELIMETER_SKIP][OPERATION_RIGHT] = START;
-	transitionMatrix[DELIMETER_SKIP][OPERTAION_EV] = START;
+	transitionMatrix[DELIMETER_SKIP][LETTER] = OUT;
+	transitionMatrix[DELIMETER_SKIP][DECIMAL] = OUT;
+	transitionMatrix[DELIMETER_SKIP][SLASH] = OUT;
+	transitionMatrix[DELIMETER_SKIP][ASTERISK] = OUT;
+	transitionMatrix[DELIMETER_SKIP][QUOTE] = OUT;
+	transitionMatrix[DELIMETER_SKIP][BACKSLASH] = OUT;
+	transitionMatrix[DELIMETER_SKIP][DELIMETER_SKIP_EV] = DELIMETER_SKIP;
+	transitionMatrix[DELIMETER_SKIP][DELIMETER_EV] = OUT;
+	transitionMatrix[DELIMETER_SKIP][NEW_LINE] = OUT;
+	transitionMatrix[DELIMETER_SKIP][INVALID_CHARACTER] = OUT;
+	transitionMatrix[DELIMETER_SKIP][OPERATION_LEFT] = OUT;
+	transitionMatrix[DELIMETER_SKIP][OPERATION_RIGHT] = OUT;
+	transitionMatrix[DELIMETER_SKIP][OPERTAION_EV] = OUT;
 
 	// there is no situations where "DELIMETER" -> "SOME STATE" transitions
 	transitionMatrix[DELIMETER][LETTER] = OUT;

@@ -1,10 +1,1 @@
-c << a; c<a;
-; 
-1es 
-res* 123
-123 22 \
-char c; 
-c << a; c<a;
-int a = 0; int b = a;
-a = b + a;
-b = a + a;
+/* */_abs

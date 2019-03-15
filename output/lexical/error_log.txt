@@ -1,3 +1,1 @@
-0 line, error in lexeme: 1es 
-0 line, error in lexeme: res* 123
-0 line, error in lexeme: \
+0 line, error in lexeme: _abs
