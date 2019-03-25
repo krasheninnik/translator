@@ -1,1 +1,15 @@
-/* */_abs
+int a = 0;
+// there 0error 9should $@!
+
+/* there comment
+	in three lines
+*/
+
+char simpleChar = 'c';
+char specSymbol = '\t';
+char specSymbolMBackslash = '\\';
+
+simpleChar = simpleChar + specSymbol;
+simpleChar = simpleChar << specSymbol;
+simpleChar < specSymbol;
+

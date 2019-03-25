@@ -49,6 +49,7 @@ Token Translator::lexemeToToken(STATE state, std::string lexeme) {
 		break;
 
 	case STATE::INT:		 // consts:
+	case STATE::CLOSE_QUOTE: // for char consts
 		result = consts.findAdd(lexeme);
 		break;
 
@@ -62,6 +63,7 @@ Token Translator::lexemeToToken(STATE state, std::string lexeme) {
 inline bool Translator::needToToken(STATE state) {
 	return state == STATE::IDENTIFICATOR ||
 		state == STATE::INT ||
+		state == STATE::CLOSE_QUOTE ||		// for char consts
 		state == STATE::DELIMETER ||
 		state == STATE::OPERTAION ||
 		state == STATE::OPERATION2RIGHT ||
@@ -117,7 +119,7 @@ void Translator::translateToTokens() {
 						Token token = lexemeToToken(curState, lexeme);
 						tokens.push_back(token);
 						// to debug:
-						std::cout << lexeme << std::endl;
+						// std::cout << lexeme << std::endl;
 					}
 				}
 

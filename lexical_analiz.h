@@ -9,7 +9,7 @@ enum STATE {
 	OPEN_QUOTE,			// 
 	CHAR,				//
 	CLOSE_QUOTE,		
-	BACKSLACH_SPEC_SYMBOL,		//
+	WAIT_SPEC_SYMBOL,
 	SPEC_SYMBOL,		// 
 /////////////////////////////	
 	ONE_SLASH,		    // 
