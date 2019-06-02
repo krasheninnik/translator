@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 #include <vector>
+#include "header.h"
 
 enum TABLE {
 	KEYWORDS,
@@ -18,8 +19,8 @@ struct Token {
 
 struct Info {
 	std::string name;
-	int type;
-	int c;
+	TYPE type;
+	bool initializated;
 };
 
 class ConstTable {	// ordered table
@@ -27,6 +28,10 @@ public:
 	ConstTable() = default;
 	ConstTable(TABLE, std::vector<std::string>&);
 	Token find(const std::string&);
+	
+	std::string operator[] (int place) { return elems[place]; };
+	std::string getName(int place) { return elems[place]; };
+
 
 private:
 	TABLE tableNum;
@@ -41,8 +46,15 @@ public:
 	void logTable(std::ofstream&);
 
 	std::string getName(int place, int place2);
-	int getType(int place, int place2);
-	void setType(int place, int place2, int type);
+
+	TYPE getType(int place, int place2);
+	void setType(int place, int place2, TYPE type);
+
+	bool getInit(int place, int place2);
+	void setInit(int place, int place2, bool mode);
+
+	std::string dataAllocation();
+	std::vector<std::vector<Info>> getElems();
 
 private:
 	std::function<size_t(const std::string&)> hashFn;

@@ -1,0 +1,10 @@
+﻿  generator.cpp
+c:\users\krasheninnik.2016\source\repos\translater\translater\generator.cpp(34): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\krasheninnik.2016\source\repos\translater\translater\generator.cpp(35): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\krasheninnik.2016\source\repos\translater\translater\generator.cpp(94): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода
+  1 of 1286 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  translater.vcxproj -> C:\Users\krasheninnik.2016\source\repos\translater\Release\translater.exe

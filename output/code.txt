@@ -1,0 +1,12 @@
+.386
+.MODEL FLAT, STDCALL
+EXTERN  ExitProcess@4: PROC; функция выхода из программы
+.DATA
+b dd ?
+.CODE
+MAIN PROC
+; exit from program
+PUSH 0 ; return code
+CALL ExitProcess@4
+MAIN ENDP
+END MAIN

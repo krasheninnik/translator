@@ -4,10 +4,11 @@
 #include <fstream>
 #include <string>
 
+
 Translator::Translator() {
 	// initiation const tables:
 	std::vector<std::string> keyWordsInitList{"char","int",	};
-	std::vector<std::string> signOfOperationsInitList{ "=", "+","-","<",">","<<",">>", "&","|" };
+	std::vector<std::string> signOfOperationsInitList{ "=", "+","-","<",">","<<",">>", "&","|", "" };
 	std::vector<std::string> delimetersInitList{ ",","\n","\t"," ",";" };
 
 	keyWords =	ConstTable(TABLE::KEYWORDS, keyWordsInitList);
@@ -24,9 +25,15 @@ Translator::Translator() {
 	// initiation lexical analizator:
 	lexAnaliz = LexicalAnaliz();
 	tokens = std::vector<Token>();
+
+	//std::function<void(const Translator&)> a = &Translator::hello;
+	synAnaliz = SyntaxAnaliz(&keyWords , &signOfOperations, &delimeters, &identificators, &consts);
+
+	generator = Generator(&keyWords, &signOfOperations, &delimeters, &identificators, &consts);
 }
 
 Token Translator::lexemeToToken(STATE state, std::string lexeme) {
+
 	Token result;
 
 	switch (state) {
@@ -91,6 +98,7 @@ void Translator::translateToTokens() {
 	while (fin) {
 		std::string line;
 		std::getline(fin, line); line += '\n';
+		row++;
 
 		EVENT event;
 
@@ -119,7 +127,7 @@ void Translator::translateToTokens() {
 						Token token = lexemeToToken(curState, lexeme);
 						tokens.push_back(token);
 						// to debug:
-						// std::cout << lexeme << std::endl;
+						//std::cout << lexeme << std::endl;
 					}
 				}
 
@@ -138,6 +146,10 @@ void Translator::translateToTokens() {
 		succesful = false;
 		std::cout << "Unclosed comment";
 	}
+
+	// end of tokens:
+	Token token = lexemeToToken(STATE::OPERTAION, "");
+	tokens.push_back(token);
 
 	if (succesful) std::cout << "Lexical analiz has been successfully completed\n";
 	else std::cout << "Lexical analiz has been completed with " << errorCount << " error(s)\n";
@@ -167,3 +179,11 @@ void Translator::logTokens() {
 }
 
 #pragma endregion
+
+void Translator::syntaxAnalize() {
+	synAnaliz.parse(tokens);
+}
+
+void Translator::generateAsm() {
+	generator.generate(synAnaliz.postfixEntries);
+}

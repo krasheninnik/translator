@@ -1,11 +1,5 @@
 Table of Identificators
-a
-specSymbolMBackslash
-specSymbol
-simpleChar
+b
 
 Table of Const
-0
-'c'
-'\\'
-'\t'
+1

@@ -1,11 +1,16 @@
 #pragma once
 #include "table.h"
 #include "lexical_analiz.h"
+#include "syntax_analiz.h"
+#include "generator.h"
+#include "iostream"
 
 class Translator {
 public:
 	Translator();
 	void translateToTokens();
+	void syntaxAnalize();
+	void generateAsm();
 	void logTables();
 	void logTokens();
 
@@ -15,7 +20,10 @@ private:
 
 private:
 	LexicalAnaliz lexAnaliz;
+	SyntaxAnaliz synAnaliz;
+	Generator generator;
 
+//public:
 	ConstTable keyWords;
 	ConstTable signOfOperations;
 	ConstTable delimeters;
@@ -23,5 +31,6 @@ private:
 	ChangedTable identificators;
 	ChangedTable consts;
 
+private:
 	std::vector<Token> tokens;
 };

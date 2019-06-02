@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <string>
 #include <fstream>
+#include "syntax_analiz.h"
 
 ConstTable::ConstTable(TABLE tableNumber, std::vector<std::string> &init_list) {
 	elems.swap(init_list);
@@ -40,7 +41,7 @@ Token ChangedTable::findAdd(const std::string& key) {
 	int place = hashFn(key) % elems.size();
 	int place2 = 0;
 
-	if (elems[place].empty()) elems[place].push_back(Info{key, -1, -1 });
+	if (elems[place].empty()) elems[place].push_back(Info{key, TYPE::UNDEFINED, false });
 	else {
 		bool finded = false;
 		for (auto el : elems[place]) {
@@ -48,7 +49,7 @@ Token ChangedTable::findAdd(const std::string& key) {
 			else place2++;
 		}
 
-		if (!finded) elems[place].push_back(Info{ key, -1, -1 });
+		if (!finded) elems[place].push_back(Info{ key, TYPE::UNDEFINED, false });
 	}
 
 	return { tableNum, place, place2 };
@@ -58,12 +59,20 @@ std::string ChangedTable::ChangedTable::getName(int place, int place2) { // chan
 	return elems[place][place2].name;
 }
 
-int ChangedTable::ChangedTable::getType(int place, int place2) {
+TYPE ChangedTable::ChangedTable::getType(int place, int place2) {
 	return elems[place][place2].type;
 }
 
-void ChangedTable::setType(int place, int place2, int newType) {
+void ChangedTable::setType(int place, int place2, TYPE newType) {
 	elems[place][place2].type = newType;
+}
+
+
+bool  ChangedTable::getInit(int place, int place2) {
+	return elems[place][place2].initializated;
+}
+void  ChangedTable::setInit(int place, int place2, bool mode) {
+	elems[place][place2].initializated = mode;
 }
 
 void ChangedTable::logTable(std::ofstream& fout) {
@@ -72,4 +81,25 @@ void ChangedTable::logTable(std::ofstream& fout) {
 			fout << elems[i][j].name << std::endl;
 		}
 	}
+}
+
+
+std::string ChangedTable::dataAllocation() {
+	std::string res = "";
+	for (int i = 0; i < elems.size(); i++) {
+		for (int j = 0; j < elems[i].size(); j++) {
+			// formating string of code to memory allocation
+			auto& elem = elems[i][j];
+
+			switch (elem.type) {
+			case TYPE::CHAR: res += elem.name + " db ?\n"; break; // DB Define Byte, allocates 1 byte
+			case TYPE::INT: res += elem.name + " dd ?\n"; break; // DD Define Doubleword, allocates 4 bytes
+			}
+		}
+	}
+	return res;
+}
+
+std::vector<std::vector<Info>> ChangedTable::getElems() {
+	return elems;
 }
